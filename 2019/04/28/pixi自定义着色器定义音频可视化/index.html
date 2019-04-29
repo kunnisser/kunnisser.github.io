@@ -79,18 +79,20 @@
 
 
 
-<meta name="description" content="动效实验记录">
+<meta name="description" content="WebAudio在查阅MDN的Api的时候，看到是这么介绍：  Web Audio API使用户可以在音频上下文(AudioContext)中进行音频操作，具有模块化路由的特点。在音频节点上操作进行基础的音频， 它们连接在一起构成音频路由图。  所以接下来我试着去test, 尝试获取一首歌曲的音频数据。 获取步骤 新建一个audio上下文实例 audioCtx。 通过audio上下文创建音频源，这">
 <meta name="keywords" content="h5游戏, h5场景， canvas, webgl">
 <meta property="og:type" content="article">
 <meta property="og:title" content="pixi自定义着色器定义音频可视化">
 <meta property="og:url" content="http://yoursite.com/2019/04/28/pixi自定义着色器定义音频可视化/index.html">
 <meta property="og:site_name" content="酷尼实验室">
-<meta property="og:description" content="动效实验记录">
+<meta property="og:description" content="WebAudio在查阅MDN的Api的时候，看到是这么介绍：  Web Audio API使用户可以在音频上下文(AudioContext)中进行音频操作，具有模块化路由的特点。在音频节点上操作进行基础的音频， 它们连接在一起构成音频路由图。  所以接下来我试着去test, 尝试获取一首歌曲的音频数据。 获取步骤 新建一个audio上下文实例 audioCtx。 通过audio上下文创建音频源，这">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-28T14:02:53.304Z">
+<meta property="og:image" content="https://mdn.mozillademos.org/files/12241/webaudioAPI_en.svg">
+<meta property="og:updated_time" content="2019-04-29T05:50:55.022Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="pixi自定义着色器定义音频可视化">
-<meta name="twitter:description" content="动效实验记录">
+<meta name="twitter:description" content="WebAudio在查阅MDN的Api的时候，看到是这么介绍：  Web Audio API使用户可以在音频上下文(AudioContext)中进行音频操作，具有模块化路由的特点。在音频节点上操作进行基础的音频， 它们连接在一起构成音频路由图。  所以接下来我试着去test, 尝试获取一首歌曲的音频数据。 获取步骤 新建一个audio上下文实例 audioCtx。 通过audio上下文创建音频源，这">
+<meta name="twitter:image" content="https://mdn.mozillademos.org/files/12241/webaudioAPI_en.svg">
 
 
 
@@ -300,7 +302,29 @@
       
 
       
-        
+        <h3 id="WebAudio"><a href="#WebAudio" class="headerlink" title="WebAudio"></a>WebAudio</h3><p>在查阅MDN的Api的时候，看到是这么介绍：</p>
+<blockquote>
+<p>Web Audio API使用户可以在音频上下文(AudioContext)中进行音频操作，具有模块化路由的特点。在音频节点上操作进行基础的音频， 它们连接在一起构成音频路由图。</p>
+</blockquote>
+<p>所以接下来我试着去test, 尝试获取一首歌曲的音频数据。</p>
+<h4 id="获取步骤"><a href="#获取步骤" class="headerlink" title="获取步骤"></a>获取步骤</h4><ol>
+<li>新建一个audio上下文实例 audioCtx。</li>
+<li>通过audio上下文创建音频源，这里有两种采样实现方式：<br>2.1 createMediaElementSource 通过audio对象获取音频文件引入 - source<br>2.2 createMediaStreamSource 通过stream流文件引入</li>
+<li>再通过audio上下文创建一个分析器节点（ analyserNode ）它提供了实时时间频率和时间域的切点，这些数据构成了数据可视化的重要参数</li>
+<li>接下来把分析器连接到音频源 source.connect(analyserNode)</li>
+<li>最后把音频源连接至设备声卡 source.connect(destination)</li>
+</ol>
+<p>简易流程如图：</p>
+<p><img src="https://mdn.mozillademos.org/files/12241/webaudioAPI_en.svg" alt="alt text" title="流程示图"></p>
+<h4 id="捕获音频数据"><a href="#捕获音频数据" class="headerlink" title="捕获音频数据"></a>捕获音频数据</h4><p>首先设置分析器快速傅里叶变换来捕获音频数据 其决定了频谱密度。<br>而frequencyBinCount决定了数据链的长度，这个属性为只读属性，值默认为fftSize的一半。<br>这样我们可以构建出一个长度为fftSize * 0.5的32位浮点型的高速类型数组。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">analyserNode.fftSize = <span class="number">256</span>;</span><br><span class="line"><span class="keyword">var</span> dataArray = <span class="keyword">new</span> <span class="built_in">Float32Array</span>(analyserNode.frequencyBinCount);</span><br></pre></td></tr></table></figure>
+<p>定义好了数组，就可以通过 getFloatFrequencyData 这个api来获取即时的音频数据。(当然还有其他获取不同类型数据的api)<br>此方法的调用通常定义在帧刷新方法中，做实时数据的变化监控和可视化渲染。<br>例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">draw</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  requestAnimationFrame(draw);</span><br><span class="line">  <span class="comment">// 获取实时音频数据</span></span><br><span class="line">  analyser.getFloatFrequencyData(dataArray);</span><br><span class="line">  <span class="built_in">console</span>.log(dataArray);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="PIXI自定义着色器"><a href="#PIXI自定义着色器" class="headerlink" title="PIXI自定义着色器"></a>PIXI自定义着色器</h3><h4 id="为什么要用着色器？"><a href="#为什么要用着色器？" class="headerlink" title="为什么要用着色器？"></a>为什么要用着色器？</h4><blockquote>
+<p>跳脱大数组图像渲染的内存消耗瓶颈</p>
+</blockquote>
+<p>在1209年的今天，基本上主流浏览器都可以支持Webgl, 我们赶紧把吃力的遍历渲染的工作交给GPU的专业图像处理器来干。救救可怜的浏览器占用吧！<br>简单来说就是，使用glsl语言构建片元和顶点着色器这些GPU可以直接运行的图形命令，并通过webgl处理可在浏览器中运行的代码。</p>
+<h4 id="PIXI-Shader的自定义"><a href="#PIXI-Shader的自定义" class="headerlink" title="PIXI.Shader的自定义"></a>PIXI.Shader的自定义</h4>
       
     </div>
     
@@ -324,15 +348,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/28/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/29/phaser_1/" rel="prev" title="Phaser 游戏开发实例（一）">
+                Phaser 游戏开发实例（一） <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -384,8 +408,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -427,6 +460,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#WebAudio"><span class="nav-number">1.</span> <span class="nav-text">WebAudio</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#获取步骤"><span class="nav-number">1.1.</span> <span class="nav-text">获取步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#捕获音频数据"><span class="nav-number">1.2.</span> <span class="nav-text">捕获音频数据</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PIXI自定义着色器"><span class="nav-number">2.</span> <span class="nav-text">PIXI自定义着色器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么要用着色器？"><span class="nav-number">2.1.</span> <span class="nav-text">为什么要用着色器？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PIXI-Shader的自定义"><span class="nav-number">2.2.</span> <span class="nav-text">PIXI.Shader的自定义</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
