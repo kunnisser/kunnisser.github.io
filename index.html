@@ -406,7 +406,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/28/pixi自定义着色器定义音频可视化/" itemprop="url">pixi自定义着色器定义音频可视化</a></h1>
+                <a class="post-title-link" href="/2019/04/28/pixi自定义着色器定义音频可视化/" itemprop="url">WebGl实现音频可视化</a></h1>
         
 
         <div class="post-meta">
@@ -475,12 +475,15 @@
 <h4 id="捕获音频数据"><a href="#捕获音频数据" class="headerlink" title="捕获音频数据"></a>捕获音频数据</h4><p>首先设置分析器快速傅里叶变换来捕获音频数据 其决定了频谱密度。<br>而frequencyBinCount决定了数据链的长度，这个属性为只读属性，值默认为fftSize的一半。<br>这样我们可以构建出一个长度为fftSize * 0.5的32位浮点型的高速类型数组。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">analyserNode.fftSize = <span class="number">256</span>;</span><br><span class="line"><span class="keyword">var</span> dataArray = <span class="keyword">new</span> <span class="built_in">Float32Array</span>(analyserNode.frequencyBinCount);</span><br></pre></td></tr></table></figure>
 <p>定义好了数组，就可以通过 getFloatFrequencyData 这个api来获取即时的音频数据。(当然还有其他获取不同类型数据的api)<br>此方法的调用通常定义在帧刷新方法中，做实时数据的变化监控和可视化渲染。<br>例如：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">draw</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  requestAnimationFrame(draw);</span><br><span class="line">  <span class="comment">// 获取实时音频数据</span></span><br><span class="line">  analyser.getFloatFrequencyData(dataArray);</span><br><span class="line">  <span class="built_in">console</span>.log(dataArray);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<h3 id="PIXI自定义着色器"><a href="#PIXI自定义着色器" class="headerlink" title="PIXI自定义着色器"></a>PIXI自定义着色器</h3><h4 id="为什么要用着色器？"><a href="#为什么要用着色器？" class="headerlink" title="为什么要用着色器？"></a>为什么要用着色器？</h4><blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">draw</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  requestAnimationFrame(draw);</span><br><span class="line">  <span class="comment">// 获取实时音频数据</span></span><br><span class="line">  analyser.getFloatFrequencyData(dataArray);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="WebGL"><a href="#WebGL" class="headerlink" title="WebGL"></a>WebGL</h3><h4 id="为啥要用WebGL？"><a href="#为啥要用WebGL？" class="headerlink" title="为啥要用WebGL？"></a>为啥要用WebGL？</h4><blockquote>
 <p>跳脱大数组图像渲染的内存消耗瓶颈</p>
 </blockquote>
 <p>在1209年的今天，基本上主流浏览器都可以支持Webgl, 我们赶紧把吃力的遍历渲染的工作交给GPU的专业图像处理器来干。救救可怜的浏览器占用吧！<br>简单来说就是，使用glsl语言构建片元和顶点着色器这些GPU可以直接运行的图形命令，并通过webgl处理可在浏览器中运行的代码。</p>
-<h4 id="PIXI-Shader的自定义"><a href="#PIXI-Shader的自定义" class="headerlink" title="PIXI.Shader的自定义"></a>PIXI.Shader的自定义</h4>
+<h4 id="pixi-js中的Filter性能"><a href="#pixi-js中的Filter性能" class="headerlink" title="pixi.js中的Filter性能"></a>pixi.js中的Filter性能</h4><p>在pixi v4.8.3版本的Filter中定义了fragShader（片元着色器）程序，却在stats插件监控发现帧率巨低。平均只有20多fps。<br>这个问题同时也存在基于pixi渲染的phaser游戏框架中，官方提供的一些filter示例也有不同程度的卡顿，希望在pixi v5的版本里的shader能得到优化。</p>
+<h4 id="初始化WebGL"><a href="#初始化WebGL" class="headerlink" title="初始化WebGL"></a>初始化WebGL</h4><p>在这里就不详细介绍概念了，首先先webGl的上下文。</p>
+<p>定义一个canvas id 设置为 scene</p>
+
           
         
       
