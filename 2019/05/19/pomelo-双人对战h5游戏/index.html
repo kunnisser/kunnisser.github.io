@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="动效实验记录">
+<meta name="description" content="前言这几天赋闲在家，难得的几天空窗期，我想要静下心来，填填放置了一年的老项目。主要是做一个双人或多人的房间频道，并实现一套即时io的游戏玩法。 优秀但趋于沉寂的node游戏服务器框架pomelo在今天，游戏服务器开发语言的首选仍是c++或者golang等。基于node的单线程架构以及内存管理问题，node做即时数据交互还是存在短板，但是它里面rpc接口异步调用的设计思路等还是给我们学习node亦或">
 <meta name="keywords" content="h5游戏, h5场景， canvas, webgl">
-<meta property="og:type" content="website">
-<meta property="og:title" content="test">
-<meta property="og:url" content="http://yoursite.com/test/index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pomelo 双人对战h5游戏">
+<meta property="og:url" content="http://yoursite.com/2019/05/19/pomelo-双人对战h5游戏/index.html">
 <meta property="og:site_name" content="酷尼实验室">
-<meta property="og:description" content="动效实验记录">
+<meta property="og:description" content="前言这几天赋闲在家，难得的几天空窗期，我想要静下心来，填填放置了一年的老项目。主要是做一个双人或多人的房间频道，并实现一套即时io的游戏玩法。 优秀但趋于沉寂的node游戏服务器框架pomelo在今天，游戏服务器开发语言的首选仍是c++或者golang等。基于node的单线程架构以及内存管理问题，node做即时数据交互还是存在短板，但是它里面rpc接口异步调用的设计思路等还是给我们学习node亦或">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-29T02:51:09.229Z">
+<meta property="og:updated_time" content="2019-05-23T05:28:22.518Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="test">
-<meta name="twitter:description" content="动效实验记录">
+<meta name="twitter:title" content="pomelo 双人对战h5游戏">
+<meta name="twitter:description" content="前言这几天赋闲在家，难得的几天空窗期，我想要静下心来，填填放置了一年的老项目。主要是做一个双人或多人的房间频道，并实现一套即时io的游戏玩法。 优秀但趋于沉寂的node游戏服务器框架pomelo在今天，游戏服务器开发语言的首选仍是c++或者golang等。基于node的单线程架构以及内存管理问题，node做即时数据交互还是存在短板，但是它里面rpc接口异步调用的设计思路等还是给我们学习node亦或">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/test/">
+  <link rel="canonical" href="http://yoursite.com/2019/05/19/pomelo-双人对战h5游戏/">
 
 
 
 
 
-  <title>test | 酷尼实验室</title>
+  <title>pomelo 双人对战h5游戏 | 酷尼实验室</title>
   
 
 
@@ -221,33 +221,143 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/19/pomelo-双人对战h5游戏/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="钱酷尼">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="酷尼实验室">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">test</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
+          <h1 class="post-title" itemprop="name headline">pomelo 双人对战h5游戏</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-19T18:34:41+08:00">
+                2019-05-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-      </div>
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>这几天赋闲在家，难得的几天空窗期，我想要静下心来，填填放置了一年的老项目。主要是做一个双人或多人的房间频道，并实现一套即时io的游戏玩法。</p>
+<h3 id="优秀但趋于沉寂的node游戏服务器框架pomelo"><a href="#优秀但趋于沉寂的node游戏服务器框架pomelo" class="headerlink" title="优秀但趋于沉寂的node游戏服务器框架pomelo"></a>优秀但趋于沉寂的node游戏服务器框架pomelo</h3><p>在今天，游戏服务器开发语言的首选仍是c++或者golang等。基于node的单线程架构以及内存管理问题，node做即时数据交互还是存在短板，但是它里面rpc接口异步调用的设计思路等还是给我们学习node亦或是游戏服务开发提供了一些借鉴。<br>这里我们想通过pomelo去记录了解一个对战游戏的本地逻辑、前端服务以及后台服务等是如何实现的。</p>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/29/phaser_1/" rel="next" title="Phaser 游戏开发实例（一）">
+                <i class="fa fa-chevron-left"></i> Phaser 游戏开发实例（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/08/js原型世界/" rel="prev" title="js原型世界">
+                js原型世界 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -280,8 +390,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -323,6 +442,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优秀但趋于沉寂的node游戏服务器框架pomelo"><span class="nav-number">2.</span> <span class="nav-text">优秀但趋于沉寂的node游戏服务器框架pomelo</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

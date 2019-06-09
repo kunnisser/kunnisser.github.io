@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="先从instanceof说起在日常开发中，我们通常使用typeof去判断一个数据类型或者是否为undefined。但是其结果只能判断出基本的数据类型，即为：number, string, object, boolean, function, undefined等。所以在进行例如数组和对象判断时，我们需要使用instanceof来检测某个数据是否为Array或Object的实例。例如：12345co">
+<meta name="keywords" content="h5游戏, h5场景， canvas, webgl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js原型世界">
+<meta property="og:url" content="http://yoursite.com/2019/06/08/js原型世界/index.html">
+<meta property="og:site_name" content="酷尼实验室">
+<meta property="og:description" content="先从instanceof说起在日常开发中，我们通常使用typeof去判断一个数据类型或者是否为undefined。但是其结果只能判断出基本的数据类型，即为：number, string, object, boolean, function, undefined等。所以在进行例如数组和对象判断时，我们需要使用instanceof来检测某个数据是否为Array或Object的实例。例如：12345co">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/06/08/js原型世界/img/prototype.jpg">
+<meta property="og:updated_time" content="2019-06-09T06:30:57.189Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js原型世界">
+<meta name="twitter:description" content="先从instanceof说起在日常开发中，我们通常使用typeof去判断一个数据类型或者是否为undefined。但是其结果只能判断出基本的数据类型，即为：number, string, object, boolean, function, undefined等。所以在进行例如数组和对象判断时，我们需要使用instanceof来检测某个数据是否为Array或Object的实例。例如：12345co">
+<meta name="twitter:image" content="http://yoursite.com/2019/06/08/js原型世界/img/prototype.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/06/08/js原型世界/">
+
+
+
+
+
+  <title>js原型世界 | 酷尼实验室</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">酷尼实验室</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">-- kunnisser</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/08/js原型世界/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="钱酷尼">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="酷尼实验室">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">js原型世界</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-08T21:45:30+08:00">
+                2019-06-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="先从instanceof说起"><a href="#先从instanceof说起" class="headerlink" title="先从instanceof说起"></a>先从instanceof说起</h3><h4 id="在日常开发中，我们通常使用typeof去判断一个数据类型或者是否为undefined。"><a href="#在日常开发中，我们通常使用typeof去判断一个数据类型或者是否为undefined。" class="headerlink" title="在日常开发中，我们通常使用typeof去判断一个数据类型或者是否为undefined。"></a>在日常开发中，我们通常使用typeof去判断一个数据类型或者是否为undefined。</h4><p>但是其结果只能判断出基本的数据类型，即为：number, string, object, boolean, function, undefined等。所以在进行例如数组和对象判断时，我们需要使用instanceof来检测某个数据是否为Array或Object的实例。<br>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const a = new Array();</span><br><span class="line">const b = new Object();</span><br><span class="line"></span><br><span class="line">console.log(a instanceof Array);</span><br><span class="line">console.log(a instanceof Object);</span><br></pre></td></tr></table></figure></p>
+<p>我们会发现 输出的结果都为true。这个时候可能会疑惑，这样一来无法判断出a到底是Array还是Object的实例了。<br>我们接下来继续：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(Array instanceof Object);</span><br></pre></td></tr></table></figure>
+<p>从这里我们看出来Array本身也是继承于Object类。</p>
+<p>那么我们怎么判断ab的数据类型呢？只需要多做一层判断</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">console.log(b instanceof Array);</span><br><span class="line">console.log(b instanceof Object);</span><br></pre></td></tr></table></figure>
+<p>前者返回false,后者返回true。这说明了b是一个对象而非数组。而a在第一次判断就可以确定是一个数组对象。a instanceof Object的判断是多余的。</p>
+<h3 id="instanceof-的实现"><a href="#instanceof-的实现" class="headerlink" title="instanceof 的实现"></a>instanceof 的实现</h3><p>那么我们现在可以说instanceof 是用来判断生成实例对象所对应的构造函数么？那Array instanceof Object和extends继承有什么关系？</p>
+<p>下面我们来实现一个instanceof:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function instanceOf (A, B) &#123;</span><br><span class="line">    let proto = A.__proto__;</span><br><span class="line">    let prototype = B.prototype;</span><br><span class="line">    while (true) &#123;</span><br><span class="line">        if (proto === null) &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        if (proto === prototype) &#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">        proto = proto.__proto__;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>代码很简单,参数A就是instance左边的数据，首先取A的隐式原型(可以理解为对象中的原型，它本质上等于构造函数的原型，这也是我们用来做instanceof判断的基准)。<br>接下来，就是取B的原型。这里做了一个while循环，终止条件就是一直向上查找到Object.prototype的隐式原型，这里要注意，不管是实例对象还是函数原型，都包含了一个隐式原型对象。<br>在查询匹配到Object.prototype.<strong>proto</strong>的时候已经到达了终点就是null。这里可以理解为并没有匹配到对应的B的原型。<br>方式就是通过获取隐式原型向上查找，如匹配到A的隐式原型和B的原型相同则返回true。</p>
+<p>这里我们再通过代码理解一下Array instanceof Object 为 true：</p>
+<p>孔子说过：在js当中一切皆为对象。Array 可以理解为一个函数，也可以理解为是一个对象。</p>
+<p>那么有如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Array.__proto__ === Function.prototype; (true)</span><br><span class="line">Function.prototype.__proto__ === Object.prototype; (true)</span><br></pre></td></tr></table></figure>
+<p>九拐十八弯，我们终于发现其实 Array.<strong>proto</strong>.<strong>proto</strong> 往上2层寻找到了对应的Object原型。</p>
+<p>这里值得注意的是，Function的隐式原型等于Function的原型。这个可能有点怪异，后面会另外做讲解。</p>
+<h3 id="准备上我呕心沥血制作的美图了"><a href="#准备上我呕心沥血制作的美图了" class="headerlink" title="准备上我呕心沥血制作的美图了"></a>准备上我呕心沥血制作的美图了</h3><p>到这里，可能不太熟悉原型，原型链，构造函数以及相互之间的关系的同学已经要懵逼了。下面我通过原创的关系图来做一个形象的说明。</p>
+<p><img src="img/prototype.jpg" alt="alt text" title="原型链结构图"></p>
+<p>如果这张图还不能满足你对于原型的理解，我可以尽量说的再详细一点：</p>
+<h3 id="js饼干工厂"><a href="#js饼干工厂" class="headerlink" title="js饼干工厂"></a>js饼干工厂</h3><p>首先让我们脑洞一下，js世界里有一个饼干工厂。我就是厂长啦，既然是饼干工厂那肯定是要生产饼干的。<br>下面我要给饼干做一个市场定位，是专门生产8-14岁的青少年儿童饼干，所有的饼干都富含多种促发育的营养物质，这个就是Object.prototype。<br>他是一切饼干产品及制作的根源（一切皆为对象）</p>
+<p>接下来建立产品饼干的研发中心Function.prototype, 它设立了好几条产线例如：<br>String, Number, Function, Object, Array, Boolean等函数，当然他们也有自己的prototype 独立的生产配方。但是他们都是基于这个研发中心来生产的。<br>所以上述函数的隐式原型就是来源于Function.prototype。<br>另外Function可以理解为处理产品的实验室而非产线，它既可以实例出新的函数，其本身又可以作为对象可以查询到自身的隐式原型指向。</p>
+<p>最后通过这些函数可以new 出各种不同种类的饼干例如{}, [], 1, ‘23’, true等等。而这些实例的对象的隐式原型又指向生产他们的配方。</p>
+<p>换句话说Object.prototype是一切对象的原型定义， Function.prototype是一切函数的原型定义。但是函数本身也是对象，所以就有了Function.prototype.__prototype =<br>Object.prototype. 这样一来Object.prototype站在了js原型的最顶端。</p>
+<p>通过原型链的层次可以这样来排列：</p>
+<ol>
+<li><p>Object.prototype</p>
+</li>
+<li><p>Function.prototype</p>
+</li>
+<li><p>Object, Function, Symbol, Boolean, String, Number</p>
+</li>
+<li><p>{}, function, symbol, true, ‘123’, 123</p>
+</li>
+<li><p>自定义的function本身还可以自定义原型并实例化新的对象{…}</p>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/19/pomelo-双人对战h5游戏/" rel="next" title="pomelo 双人对战h5游戏">
+                <i class="fa fa-chevron-left"></i> pomelo 双人对战h5游戏
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">钱酷尼</p>
+              <p class="site-description motion-element" itemprop="description">动效实验记录</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#先从instanceof说起"><span class="nav-number">1.</span> <span class="nav-text">先从instanceof说起</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#在日常开发中，我们通常使用typeof去判断一个数据类型或者是否为undefined。"><span class="nav-number">1.1.</span> <span class="nav-text">在日常开发中，我们通常使用typeof去判断一个数据类型或者是否为undefined。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#instanceof-的实现"><span class="nav-number">2.</span> <span class="nav-text">instanceof 的实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#准备上我呕心沥血制作的美图了"><span class="nav-number">3.</span> <span class="nav-text">准备上我呕心沥血制作的美图了</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#js饼干工厂"><span class="nav-number">4.</span> <span class="nav-text">js饼干工厂</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">钱酷尼</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
