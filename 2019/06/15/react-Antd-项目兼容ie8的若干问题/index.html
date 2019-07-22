@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="前言这几天赋闲在家，难得的几天空窗期，我想要静下心来，填填放置了一年的老项目。主要是做一个双人或多人的房间频道，并实现一套即时io的游戏玩法。 优秀但趋于沉寂的node游戏服务器框架pomelo在今天，游戏服务器开发语言的首选仍是c++或者golang等。基于node的单线程架构以及内存管理问题，node做即时数据交互还是存在短板，但是它里面rpc接口异步调用的设计思路等还是给我们学习node亦或">
+<meta name="description" content="新公司的业务是面向政府项目，然而政府项目的需求现状是会需要去兼容ie9以下版本。大量未升级的XP版本即使强制使用浏览器最高版本也只有到ie8。那么基于客户要求至上的原则，花费精力在低版本ie兼容上还是存在合理性的。  一、 技术栈选型前后端分离对于IE兼容项目尤其是要兼容到IE8以下版本就是奇葩的存在，在整个babel编译过程从ES6 -&amp;gt; ES5 -&amp;gt; ES3之外，还要修复兼容一系">
 <meta name="keywords" content="h5游戏, h5场景， canvas, webgl">
 <meta property="og:type" content="article">
-<meta property="og:title" content="pomelo 双人对战h5游戏">
-<meta property="og:url" content="http://yoursite.com/2019/05/19/pomelo-双人对战h5游戏/index.html">
+<meta property="og:title" content="React+Antd 项目兼容ie8的几座大山">
+<meta property="og:url" content="http://yoursite.com/2019/06/15/react-Antd-项目兼容ie8的若干问题/index.html">
 <meta property="og:site_name" content="酷尼实验室">
-<meta property="og:description" content="前言这几天赋闲在家，难得的几天空窗期，我想要静下心来，填填放置了一年的老项目。主要是做一个双人或多人的房间频道，并实现一套即时io的游戏玩法。 优秀但趋于沉寂的node游戏服务器框架pomelo在今天，游戏服务器开发语言的首选仍是c++或者golang等。基于node的单线程架构以及内存管理问题，node做即时数据交互还是存在短板，但是它里面rpc接口异步调用的设计思路等还是给我们学习node亦或">
+<meta property="og:description" content="新公司的业务是面向政府项目，然而政府项目的需求现状是会需要去兼容ie9以下版本。大量未升级的XP版本即使强制使用浏览器最高版本也只有到ie8。那么基于客户要求至上的原则，花费精力在低版本ie兼容上还是存在合理性的。  一、 技术栈选型前后端分离对于IE兼容项目尤其是要兼容到IE8以下版本就是奇葩的存在，在整个babel编译过程从ES6 -&amp;gt; ES5 -&amp;gt; ES3之外，还要修复兼容一系">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-23T05:28:22.518Z">
+<meta property="og:updated_time" content="2019-07-22T13:50:53.295Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="pomelo 双人对战h5游戏">
-<meta name="twitter:description" content="前言这几天赋闲在家，难得的几天空窗期，我想要静下心来，填填放置了一年的老项目。主要是做一个双人或多人的房间频道，并实现一套即时io的游戏玩法。 优秀但趋于沉寂的node游戏服务器框架pomelo在今天，游戏服务器开发语言的首选仍是c++或者golang等。基于node的单线程架构以及内存管理问题，node做即时数据交互还是存在短板，但是它里面rpc接口异步调用的设计思路等还是给我们学习node亦或">
+<meta name="twitter:title" content="React+Antd 项目兼容ie8的几座大山">
+<meta name="twitter:description" content="新公司的业务是面向政府项目，然而政府项目的需求现状是会需要去兼容ie9以下版本。大量未升级的XP版本即使强制使用浏览器最高版本也只有到ie8。那么基于客户要求至上的原则，花费精力在低版本ie兼容上还是存在合理性的。  一、 技术栈选型前后端分离对于IE兼容项目尤其是要兼容到IE8以下版本就是奇葩的存在，在整个babel编译过程从ES6 -&amp;gt; ES5 -&amp;gt; ES3之外，还要修复兼容一系">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/05/19/pomelo-双人对战h5游戏/">
+  <link rel="canonical" href="http://yoursite.com/2019/06/15/react-Antd-项目兼容ie8的若干问题/">
 
 
 
 
 
-  <title>pomelo 双人对战h5游戏 | 酷尼实验室</title>
+  <title>React+Antd 项目兼容ie8的几座大山 | 酷尼实验室</title>
   
 
 
@@ -233,7 +233,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/19/pomelo-双人对战h5游戏/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/15/react-Antd-项目兼容ie8的若干问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="钱酷尼">
@@ -250,7 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">pomelo 双人对战h5游戏</h1>
+          <h1 class="post-title" itemprop="name headline">React+Antd 项目兼容ie8的几座大山</h1>
         
 
         <div class="post-meta">
@@ -262,8 +262,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-19T18:34:41+08:00">
-                2019-05-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-15T22:09:53+08:00">
+                2019-06-15
               </time>
             
 
@@ -300,8 +300,49 @@
       
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>这几天赋闲在家，难得的几天空窗期，我想要静下心来，填填放置了一年的老项目。主要是做一个双人或多人的房间频道，并实现一套即时io的游戏玩法。</p>
-<h3 id="优秀但趋于沉寂的node游戏服务器框架pomelo"><a href="#优秀但趋于沉寂的node游戏服务器框架pomelo" class="headerlink" title="优秀但趋于沉寂的node游戏服务器框架pomelo"></a>优秀但趋于沉寂的node游戏服务器框架pomelo</h3><p>在今天，游戏服务器开发语言的首选仍是c++或者golang等。基于node的单线程架构以及内存管理问题，node做即时数据交互还是存在短板，但是它里面rpc接口异步调用的设计思路等还是给我们学习node亦或是游戏服务开发提供了一些借鉴。<br>这里我们想通过pomelo去记录了解一个对战游戏的本地逻辑、前端服务以及后台服务等是如何实现的。</p>
+        <blockquote>
+<p>新公司的业务是面向政府项目，然而政府项目的需求现状是会需要去兼容ie9以下版本。大量未升级的XP版本即使强制使用浏览器最高版本也只有到ie8。那么基于客户要求至上的原则，花费精力在低版本ie兼容上还是存在合理性的。</p>
+</blockquote>
+<h3 id="一、-技术栈选型"><a href="#一、-技术栈选型" class="headerlink" title="一、 技术栈选型"></a>一、 技术栈选型</h3><p>前后端分离对于IE兼容项目尤其是要兼容到IE8以下版本就是奇葩的存在，在整个babel编译过程从ES6 -&gt; ES5 -&gt; ES3之外，还要修复兼容一系列IE低版本本身不支持的api. 以及一系列怪异的样式问题。</p>
+<p>然而工作还是要继续，恰当的技术选型就比较关键了，现在比较主流的处理方式就是做版本库降级，例如： react v0.16.4 + webpack v1.15.0 + react-router v2.3.0 + babel-polyfill + es5-shim等一系列降级库和垫片来处理。</p>
+<p>在这里我们采用司徒正妹的anujs库，作为IE兼容狂魔的代表作我们都知道avalon。其实他还设计了一个基于React16版本的库，也就是anujs. 我们可以通过它来实现 react16 + webpack4.x + reach-router 来使用最新的前后端分离的工程技术栈进行开发。突然感觉到了一丝强大。</p>
+<h3 id="二、-webpack-环境搭建"><a href="#二、-webpack-环境搭建" class="headerlink" title="二、 webpack 环境搭建"></a>二、 webpack 环境搭建</h3><p>这里我们基于react-dev-utils搭建一个类似于create-react-app的脚手架。这里为什么不直接用create-react-app呢？ 这里主要有三个原因：</p>
+<ol>
+<li>我们希望webpack工程能具有一定的灵活性</li>
+<li>防止部分脚手架功能导致IE报错。</li>
+<li>同时进行多项目的统一脚手架配置。<br>（我们最近的改版项目涉及到30多个省市的项目，每个项目近乎独立，所以在jenkins自动化部署上，最好能配置单一脚手架实现多项目托管。）</li>
+</ol>
+<h3 id="三、IE兼容条目"><a href="#三、IE兼容条目" class="headerlink" title="三、IE兼容条目"></a>三、IE兼容条目</h3><h4 id="compat-js"><a href="#compat-js" class="headerlink" title="compat.js"></a>compat.js</h4><p>主要基于es-shim库做一些函数API兼容并加入Map定义的覆盖，UA的IE判断等。</p>
+<h4 id="分割打包initial模式的模块"><a href="#分割打包initial模式的模块" class="headerlink" title="分割打包initial模式的模块"></a>分割打包initial模式的模块</h4><ol>
+<li>object-create-ie8（替代es-sham）</li>
+<li>object-defineproperty-ie8 (兼容object.defineproperty)</li>
+<li>console-polyfill (兼容console)</li>
+<li>bluebird (兼容Promise)</li>
+<li>fetch-polyfill2 (兼容fetch请求)</li>
+</ol>
+<h4 id="anujs的React兼容体系"><a href="#anujs的React兼容体系" class="headerlink" title="anujs的React兼容体系"></a>anujs的React兼容体系</h4><ol>
+<li>ReactIE - 对React16添加了一些特殊事件的兼容补丁与innerHTML的修复处理</li>
+<li>createClass - 对React的createClass进行兼容</li>
+<li>Reach-router - 对react路由进行兼容，值得注意的是IE9以下只能使用hash模式 （也可以使用低版本的react-router）</li>
+</ol>
+<h4 id="webpack的plugin"><a href="#webpack的plugin" class="headerlink" title="webpack的plugin"></a>webpack的plugin</h4><p>es3ify-plugin - 修复关键字在IE8中不能作为属性名和方法名，例如modue.default而default作为关键字会在IE8中报错。</p>
+<h3 id="四、Antd1-11-x的兼容"><a href="#四、Antd1-11-x的兼容" class="headerlink" title="四、Antd1.11.x的兼容"></a>四、Antd1.11.x的兼容</h3><p>react的兼容只是顺利进行IE版本开发的一半，下面针对一些UI库还需要进行一些处理。</p>
+<ol>
+<li><p>rc-calendar - Picker.js - forcus报错 空对象 更换rc-calendar v7.5.3</p>
+</li>
+<li><p>点击下拉select报错 - dom-align - v.1.6.7 - rc-align - v.2.3.6</p>
+</li>
+<li><p>select下拉样式错误 - dom-align fixTop修复</p>
+</li>
+<li><p>pagination 报错 - 使用 rc-pagination 1.8.10版本</p>
+</li>
+<li><p>Map 在IE11有自己的实现定义且区别于ES6的Map, 所以要重新定义Map</p>
+</li>
+<li><p>window.matchMedia 未定义， 安装media-match 兼容</p>
+</li>
+<li><p>IE10下面antd form组件中的input事件在placeholder为中文的情况下初始化会执行自动执行，导致二次渲染。</p>
+</li>
+</ol>
 
       
     </div>
@@ -326,8 +367,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/29/phaser_1/" rel="next" title="Phaser 游戏开发实例（一）">
-                <i class="fa fa-chevron-left"></i> Phaser 游戏开发实例（一）
+              <a href="/2019/06/08/js原型世界/" rel="next" title="js原型世界">
+                <i class="fa fa-chevron-left"></i> js原型世界
               </a>
             
           </div>
@@ -336,8 +377,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/06/08/js原型世界/" rel="prev" title="js原型世界">
-                js原型世界 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/07/22/React在IE下的性能优化/" rel="prev" title="React在IE下的性能优化">
+                React在IE下的性能优化 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -461,7 +502,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优秀但趋于沉寂的node游戏服务器框架pomelo"><span class="nav-number">2.</span> <span class="nav-text">优秀但趋于沉寂的node游戏服务器框架pomelo</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、-技术栈选型"><span class="nav-number">1.</span> <span class="nav-text">一、 技术栈选型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、-webpack-环境搭建"><span class="nav-number">2.</span> <span class="nav-text">二、 webpack 环境搭建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、IE兼容条目"><span class="nav-number">3.</span> <span class="nav-text">三、IE兼容条目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#compat-js"><span class="nav-number">3.1.</span> <span class="nav-text">compat.js</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分割打包initial模式的模块"><span class="nav-number">3.2.</span> <span class="nav-text">分割打包initial模式的模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#anujs的React兼容体系"><span class="nav-number">3.3.</span> <span class="nav-text">anujs的React兼容体系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#webpack的plugin"><span class="nav-number">3.4.</span> <span class="nav-text">webpack的plugin</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、Antd1-11-x的兼容"><span class="nav-number">4.</span> <span class="nav-text">四、Antd1.11.x的兼容</span></a></li></ol></div>
             
 
           </div>

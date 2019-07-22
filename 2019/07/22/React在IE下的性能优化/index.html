@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="加载优化 渲染优化,">
 
 
 
@@ -79,18 +79,20 @@
 
 
 
-<meta name="description" content="前言这几天赋闲在家，难得的几天空窗期，我想要静下心来，填填放置了一年的老项目。主要是做一个双人或多人的房间频道，并实现一套即时io的游戏玩法。 优秀但趋于沉寂的node游戏服务器框架pomelo在今天，游戏服务器开发语言的首选仍是c++或者golang等。基于node的单线程架构以及内存管理问题，node做即时数据交互还是存在短板，但是它里面rpc接口异步调用的设计思路等还是给我们学习node亦或">
-<meta name="keywords" content="h5游戏, h5场景， canvas, webgl">
+<meta name="description" content="项目初始加载优化 从白屏到页面显示的一些耗时因素：   TTFB - 客户端拿到资源的耗时，一般受并发请求数，服务程序处理和网速影响  contentDownload 受文件大小和网速影响  stalled/block 失速和阻塞是在发送请求前等待的时间，受进入队列前的一些原因导致耗时。例如代理协商  initial connection 建立连接所需时间。建立TCP连接协商SSL。受网络环境影响">
+<meta name="keywords" content="加载优化 渲染优化">
 <meta property="og:type" content="article">
-<meta property="og:title" content="pomelo 双人对战h5游戏">
-<meta property="og:url" content="http://yoursite.com/2019/05/19/pomelo-双人对战h5游戏/index.html">
+<meta property="og:title" content="React在IE下的性能优化">
+<meta property="og:url" content="http://yoursite.com/2019/07/22/React在IE下的性能优化/index.html">
 <meta property="og:site_name" content="酷尼实验室">
-<meta property="og:description" content="前言这几天赋闲在家，难得的几天空窗期，我想要静下心来，填填放置了一年的老项目。主要是做一个双人或多人的房间频道，并实现一套即时io的游戏玩法。 优秀但趋于沉寂的node游戏服务器框架pomelo在今天，游戏服务器开发语言的首选仍是c++或者golang等。基于node的单线程架构以及内存管理问题，node做即时数据交互还是存在短板，但是它里面rpc接口异步调用的设计思路等还是给我们学习node亦或">
+<meta property="og:description" content="项目初始加载优化 从白屏到页面显示的一些耗时因素：   TTFB - 客户端拿到资源的耗时，一般受并发请求数，服务程序处理和网速影响  contentDownload 受文件大小和网速影响  stalled/block 失速和阻塞是在发送请求前等待的时间，受进入队列前的一些原因导致耗时。例如代理协商  initial connection 建立连接所需时间。建立TCP连接协商SSL。受网络环境影响">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-23T05:28:22.518Z">
+<meta property="og:image" content="http://static.zybuluo.com/kunnisser/a3aeg039d8t970ieowr8o209/image.png">
+<meta property="og:updated_time" content="2019-07-22T13:49:47.536Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="pomelo 双人对战h5游戏">
-<meta name="twitter:description" content="前言这几天赋闲在家，难得的几天空窗期，我想要静下心来，填填放置了一年的老项目。主要是做一个双人或多人的房间频道，并实现一套即时io的游戏玩法。 优秀但趋于沉寂的node游戏服务器框架pomelo在今天，游戏服务器开发语言的首选仍是c++或者golang等。基于node的单线程架构以及内存管理问题，node做即时数据交互还是存在短板，但是它里面rpc接口异步调用的设计思路等还是给我们学习node亦或">
+<meta name="twitter:title" content="React在IE下的性能优化">
+<meta name="twitter:description" content="项目初始加载优化 从白屏到页面显示的一些耗时因素：   TTFB - 客户端拿到资源的耗时，一般受并发请求数，服务程序处理和网速影响  contentDownload 受文件大小和网速影响  stalled/block 失速和阻塞是在发送请求前等待的时间，受进入队列前的一些原因导致耗时。例如代理协商  initial connection 建立连接所需时间。建立TCP连接协商SSL。受网络环境影响">
+<meta name="twitter:image" content="http://static.zybuluo.com/kunnisser/a3aeg039d8t970ieowr8o209/image.png">
 
 
 
@@ -120,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/05/19/pomelo-双人对战h5游戏/">
+  <link rel="canonical" href="http://yoursite.com/2019/07/22/React在IE下的性能优化/">
 
 
 
 
 
-  <title>pomelo 双人对战h5游戏 | 酷尼实验室</title>
+  <title>React在IE下的性能优化 | 酷尼实验室</title>
   
 
 
@@ -233,7 +235,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/19/pomelo-双人对战h5游戏/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/22/React在IE下的性能优化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="钱酷尼">
@@ -250,7 +252,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">pomelo 双人对战h5游戏</h1>
+          <h1 class="post-title" itemprop="name headline">React在IE下的性能优化</h1>
         
 
         <div class="post-meta">
@@ -262,8 +264,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-19T18:34:41+08:00">
-                2019-05-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-22T21:48:59+08:00">
+                2019-07-22
               </time>
             
 
@@ -300,8 +302,64 @@
       
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>这几天赋闲在家，难得的几天空窗期，我想要静下心来，填填放置了一年的老项目。主要是做一个双人或多人的房间频道，并实现一套即时io的游戏玩法。</p>
-<h3 id="优秀但趋于沉寂的node游戏服务器框架pomelo"><a href="#优秀但趋于沉寂的node游戏服务器框架pomelo" class="headerlink" title="优秀但趋于沉寂的node游戏服务器框架pomelo"></a>优秀但趋于沉寂的node游戏服务器框架pomelo</h3><p>在今天，游戏服务器开发语言的首选仍是c++或者golang等。基于node的单线程架构以及内存管理问题，node做即时数据交互还是存在短板，但是它里面rpc接口异步调用的设计思路等还是给我们学习node亦或是游戏服务开发提供了一些借鉴。<br>这里我们想通过pomelo去记录了解一个对战游戏的本地逻辑、前端服务以及后台服务等是如何实现的。</p>
+        <h2 id="项目初始加载优化"><a href="#项目初始加载优化" class="headerlink" title="项目初始加载优化"></a>项目初始加载优化</h2><blockquote>
+<p>从白屏到页面显示的一些耗时因素：</p>
+</blockquote>
+<ol>
+<li><p>TTFB - 客户端拿到资源的耗时，一般受并发请求数，服务程序处理和网速影响</p>
+</li>
+<li><p>contentDownload 受文件大小和网速影响</p>
+</li>
+<li><p>stalled/block 失速和阻塞是在发送请求前等待的时间，受进入队列前的一些原因导致耗时。例如代理协商</p>
+</li>
+<li><p>initial connection 建立连接所需时间。建立TCP连接协商SSL。受网络环境影响</p>
+</li>
+<li><p>queueing 排队事件，受请求优先级影响，例如图片请求低于脚本样式，或者浏览器的tcp链接上限导致被搁置。</p>
+</li>
+</ol>
+<p><img src="http://static.zybuluo.com/kunnisser/a3aeg039d8t970ieowr8o209/image.png" alt="image.png-126.1kB"></p>
+<blockquote>
+<p>一些优化措施</p>
+</blockquote>
+<ul>
+<li><p>由于项目是用webpack4.x进行搭建，这一版本的脚手架优化了tree-shaking以及spliteChunks等内置处理。使得我们可以尽可能的减少单个包体积，同时可以合理的分离公共代码模块。控制并发的脚本数, 甚至根据按需引入或路由分割成多个模块进行异步加载。</p>
+</li>
+<li><p>服务端Gzip压缩，这一点很重要。直接影响contentDownload时间</p>
+</li>
+<li><p>域名DNS预解析<br>会在浏览器空闲时把域名解析为IP地址而非请求时进行。例如</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta http-equiv=&apos;x-dns-prefetch-control&apos; content=&apos;on&apos;&gt;</span><br><span class="line">&lt;link rel=&apos;dns-prefetch&apos; href=&apos;http://www.junruizx.com&apos;&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>TTFB 优化服务器，异地机房，CDN等</p>
+</li>
+<li><p>缓存策略</p>
+</li>
+<li><p>在IE中做预加载骨架。</p>
+</li>
+<li><p>js加载阻塞html渲染<br>defer - 会将js先下载下来，但是会等HTML解析完成后，才执行<br>async - 同时进行HTML解析与js下载，但js下载完成后立刻停止HTML解析并执行js代码</p>
+</li>
+</ul>
+<h2 id="React在IE下的渲染优化"><a href="#React在IE下的渲染优化" class="headerlink" title="React在IE下的渲染优化"></a>React在IE下的渲染优化</h2><ol>
+<li><p>IE10下面antd form组件中的input事件在placeholder为中文的情况下初始化会执行自动执行，导致二次渲染。</p>
+</li>
+<li><p>子组件执行redux action可能会导致父组件重绘。 父组件如没有业务需求，直接设置shouldComponentupdate return false</p>
+</li>
+<li><p>IE下的table 数据渲染性能开销大，尽量减少重绘</p>
+</li>
+<li><p>rowSelect尽量使用radio 和 checkbox ，使用onRow来处理选中会导致多次渲染</p>
+</li>
+<li><p>子组件尽量去分析业务，简单的组件直接用PureComponent,阻止无意义的render.复杂组件自定义shouldComponentUpdate来设置具体的逻辑比对。缩小业务数据比对的范围。</p>
+</li>
+<li><p>form组件受控 - 改变单个控件，整个form会重绘。为了方便开发和监听校验，暂时忽略。</p>
+</li>
+<li><p>input和textarea等控件输入导致多次render, 添加防抖机制。</p>
+</li>
+<li><p>react渲染在IE下的速度明显没有chrome来的快，甚至IE10,IE11的渲染耗时居然比IE9高。（应该是IE9在渲染动画上做了一定的降级）</p>
+</li>
+</ol>
+<hr>
+<p>目前项目改版还未开始，暂时的优化思路为以上几点，后续继续探索和完善。</p>
 
       
     </div>
@@ -317,6 +375,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/加载优化-渲染优化/" rel="tag"># 加载优化 渲染优化</a>
+          
+        </div>
+      
 
       
       
@@ -326,8 +390,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/29/phaser_1/" rel="next" title="Phaser 游戏开发实例（一）">
-                <i class="fa fa-chevron-left"></i> Phaser 游戏开发实例（一）
+              <a href="/2019/06/15/react-Antd-项目兼容ie8的若干问题/" rel="next" title="React+Antd 项目兼容ie8的几座大山">
+                <i class="fa fa-chevron-left"></i> React+Antd 项目兼容ie8的几座大山
               </a>
             
           </div>
@@ -335,10 +399,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/06/08/js原型世界/" rel="prev" title="js原型世界">
-                js原型世界 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -461,7 +521,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优秀但趋于沉寂的node游戏服务器框架pomelo"><span class="nav-number">2.</span> <span class="nav-text">优秀但趋于沉寂的node游戏服务器框架pomelo</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#项目初始加载优化"><span class="nav-number">1.</span> <span class="nav-text">项目初始加载优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#React在IE下的渲染优化"><span class="nav-number">2.</span> <span class="nav-text">React在IE下的渲染优化</span></a></li></ol></div>
             
 
           </div>
